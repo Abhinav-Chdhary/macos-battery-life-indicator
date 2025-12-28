@@ -57,25 +57,41 @@ cd BatteryIndicator
 xcodebuild -project BatteryIndicator.xcodeproj -scheme BatteryIndicator -configuration Release build
 ```
 
-The built application will be located at:
-```
-BatteryIndicator/build/Release/BatteryIndicator.app
-```
+**Note:** Xcode builds apps in the DerivedData folder, not in the project directory.
 
 ## Installation for Permanent Use
 
-### Step 1: Copy to Applications Folder
+### Step 1: Locate the Built Application
 
-**Using Terminal:**
+After building, find the app location:
+
 ```bash
-cp -r BatteryIndicator/build/Release/BatteryIndicator.app /Applications/
+find ~/Library/Developer/Xcode/DerivedData -name "BatteryIndicator.app" -path "*/Release/*" 2>/dev/null
+```
+
+This will show the path, something like:
+```
+/Users/[username]/Library/Developer/Xcode/DerivedData/BatteryIndicator-[hash]/Build/Products/Release/BatteryIndicator.app
+```
+
+### Step 2: Copy to Applications Folder
+
+**Using Terminal (replace [path] with the actual path from above):**
+```bash
+cp -r [path]/BatteryIndicator.app /Applications/
+```
+
+**Example:**
+```bash
+cp -r ~/Library/Developer/Xcode/DerivedData/BatteryIndicator-*/Build/Products/Release/BatteryIndicator.app /Applications/
 ```
 
 **Using Finder:**
-1. Navigate to `BatteryIndicator/build/Release/`
-2. Drag `BatteryIndicator.app` to your `/Applications` folder
+1. Press `Cmd + Shift + G` in Finder
+2. Paste the path from the find command
+3. Drag `BatteryIndicator.app` to your `/Applications` folder
 
-### Step 2: Launch the Application
+### Step 3: Launch the Application
 
 **Option 1:** Double-click `BatteryIndicator.app` from Applications folder
 
@@ -86,7 +102,7 @@ cp -r BatteryIndicator/build/Release/BatteryIndicator.app /Applications/
 
 The battery indicator (🔋) should now appear in your menu bar!
 
-### Step 3: Enable Auto-Start on Login (Optional)
+### Step 4: Enable Auto-Start on Login (Optional)
 
 To make BatteryIndicator start automatically when you log in:
 
